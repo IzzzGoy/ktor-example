@@ -32,5 +32,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:0.37.3")
     implementation("org.postgresql:postgresql:42.3.3")
 
-
+    implementation("io.bkbn:kompendium-core:2.3.1")
+    implementation("io.bkbn:kompendium-oas:2.3.1")
+    implementation("io.bkbn:kompendium-swagger-ui:2.3.1")
 }

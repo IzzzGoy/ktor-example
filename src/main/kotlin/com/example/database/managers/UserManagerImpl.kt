@@ -7,6 +7,9 @@ import com.example.database.tables.User
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 
+
+class UserNotFoundException(uuid: UUID): Exception("User with id: $uuid not found")
+
 class UserManagerImpl(
     private val userMapper: UserMapper
 ): UserManager {
@@ -21,10 +24,12 @@ class UserManagerImpl(
     }
 
     override fun getUser(user: UUID): ResponseUserModel {
-        TODO("Not yet implemented")
+        return transaction {
+            User.findById(user) ?: throw UserNotFoundException(user)
+        }.let(userMapper::invoke)
     }
 
     override fun getAll(): List<ResponseUserModel> {
-        TODO("Not yet implemented")
+        return transaction { User.all().map(userMapper::invoke) }
     }
 }
